@@ -1,0 +1,35 @@
+# Gradle
+.gradle/
+build/
+.idea/
+.project
+.classpath
+.settings/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.metadata/
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Package Files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar
+*.tar.gz
+
+# Virtual machine crash logs
+hs_err_pid*
+
+# Local configuration files
+local.properties
+
+# Generated files
+/out/

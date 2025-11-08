@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.hexagonal.shop'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    tests {
+        canBeConsumed = true
+        canBeResolved = false
+    }
+}
+
+tasks.register('testJar', Jar) {
+    archiveClassifier.set('tests')
+    from sourceSets.test.output
+    dependsOn tasks.testClasses
+}
+
+artifacts {
+    tests tasks.named('testJar')
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.42'
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.assertj:assertj-core:3.27.6'
+    testCompileOnly 'org.projectlombok:lombok:1.18.42'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.42'
+}
+
+test {
+    useJUnitPlatform()
+}
