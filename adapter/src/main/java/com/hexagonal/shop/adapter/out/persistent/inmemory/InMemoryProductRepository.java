@@ -4,12 +4,16 @@ import com.hexagonal.shop.adapter.out.persistent.DemoProducts;
 import com.hexagonal.shop.model.product.Product;
 import com.hexagonal.shop.model.product.ProductId;
 import com.hexagonal.shop.application.port.out.persistence.ProductRepository;
+import io.quarkus.arc.lookup.LookupIfProperty;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+@LookupIfProperty(name = "persistence", stringValue = "inmemory", lookupIfMissing = true)
+@ApplicationScoped
 public class InMemoryProductRepository implements ProductRepository {
 
   private final Map<ProductId, Product> products = new ConcurrentHashMap<>();

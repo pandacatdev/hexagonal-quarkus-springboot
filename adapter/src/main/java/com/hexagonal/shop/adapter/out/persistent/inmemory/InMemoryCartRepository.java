@@ -3,10 +3,14 @@ package com.hexagonal.shop.adapter.out.persistent.inmemory;
 import com.hexagonal.shop.model.cart.Cart;
 import com.hexagonal.shop.model.customer.CustomerId;
 import com.hexagonal.shop.application.port.out.persistence.CartRepository;
+import io.quarkus.arc.lookup.LookupIfProperty;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
+@LookupIfProperty(name = "persistence", stringValue = "inmemory", lookupIfMissing = true)
+@ApplicationScoped
 public class InMemoryCartRepository implements CartRepository {
 
   private final Map<CustomerId, Cart> carts = new ConcurrentHashMap<>();

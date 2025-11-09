@@ -4,43 +4,46 @@ import static com.hexagonal.shop.model.money.TestMoneyFactory.euros;
 import static com.hexagonal.shop.model.product.TestProductFactory.createTestProduct;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.hexagonal.shop.application.port.out.persistence.CartRepository;
+import com.hexagonal.shop.application.port.out.persistence.ProductRepository;
 import com.hexagonal.shop.model.cart.Cart;
 import com.hexagonal.shop.model.cart.CartLineItem;
 import com.hexagonal.shop.model.cart.NotEnoughItemsInStockException;
 import com.hexagonal.shop.model.customer.CustomerId;
 import com.hexagonal.shop.model.product.Product;
-import com.hexagonal.shop.application.port.out.persistence.CartRepository;
-import com.hexagonal.shop.application.port.out.persistence.ProductRepository;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public abstract class AbstractCartRepositoryTest<
-    T extends CartRepository, U extends ProductRepository> {
+public abstract class AbstractCartRepositoryTest {
 
   private static final Product TEST_PRODUCT_1 = createTestProduct(euros(19, 99));
   private static final Product TEST_PRODUCT_2 = createTestProduct(euros(1, 49));
 
   private static final AtomicInteger CUSTOMER_ID_SEQUENCE_GENERATOR = new AtomicInteger();
 
-  private T cartRepository;
+  @Inject
+  Instance<CartRepository> cartRepositoryInstance;
+
+  @Inject
+  Instance<ProductRepository> productRepositoryInstance;
+
+  private CartRepository cartRepository;
 
   @BeforeEach
   void initRepositories() {
-    cartRepository = createCartRepository();
+    cartRepository = cartRepositoryInstance.get();
     persistTestProducts();
   }
 
-  protected abstract T createCartRepository();
-
   private void persistTestProducts() {
-    U productRepository = createProductRepository();
+    ProductRepository productRepository = productRepositoryInstance.get();
     productRepository.save(TEST_PRODUCT_1);
     productRepository.save(TEST_PRODUCT_2);
   }
-
-  protected abstract U createProductRepository();
 
   @Test
   void givenACustomerIdForWhichNoCartIsPersisted_findByCustomerId_returnsAnEmptyOptional() {

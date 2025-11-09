@@ -1,8 +1,0 @@
-<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.0">
-  <persistence-unit name="com.hexagonal.shop.adapter.out.persistent.jpa">
-    <class>com.hexagonal.shop.adapter.out.persistent.jpa.cart.CartJpaEntity</class>
-    <class>com.hexagonal.shop.adapter.out.persistent.jpa.cart.CartLineItemJpaEntity</class>
-    <class>com.hexagonal.shop.adapter.out.persistent.jpa.product.ProductJpaEntity</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
-  </persistence-unit>
-</persistence>

@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'io.quarkus' version "${quarkusPlatformVersion}"
 }
 
 application {
@@ -15,32 +16,18 @@ repositories {
 }
 
 dependencies {
+    implementation enforcedPlatform("io.quarkus.platform:quarkus-bom:${quarkusPlatformVersion}")
+
     implementation project(':adapter')
     implementation project(':application')
     implementation project(':model')
-    implementation('org.jboss.resteasy:resteasy-undertow:7.0.0.Final') {
-        exclude group: 'org.jboss', module: 'jandex'
-    }
-    runtimeOnly 'org.jboss.resteasy:resteasy-jackson2-provider:7.0.0.Final'
 
-    implementation 'org.hibernate.orm:hibernate-core:7.1.7.Final'
-    implementation 'org.hibernate.validator:hibernate-validator:9.0.1.Final'
-    implementation 'org.glassfish:jakarta.el:5.0.0-M1'
-    implementation 'com.mysql:mysql-connector-j:9.4.0'
-
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.assertj:assertj-core:3.27.6'
-    testImplementation 'io.rest-assured:rest-assured:5.5.6'
+    testImplementation "io.quarkus:quarkus-junit5"
+    testImplementation "io.quarkus:quarkus-junit5-mockito"
+    testImplementation "io.rest-assured:rest-assured"
     testImplementation 'com.tngtech.archunit:archunit-junit5:1.4.1'
+    testImplementation 'org.assertj:assertj-core:3.27.6'
     testImplementation project(path: ':adapter', configuration: 'tests') // adapter's test-jar
-}
-
-configurations.testRuntimeClasspath {
-    resolutionStrategy {
-        force "org.junit.platform:junit-platform-launcher:1.11.0"
-        force "org.junit.platform:junit-platform-engine:1.11.0"
-    }
 }
 
 test {

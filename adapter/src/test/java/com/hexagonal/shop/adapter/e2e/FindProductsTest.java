@@ -1,4 +1,4 @@
-package com.hexagonal.bootstrap.e2e;
+package com.hexagonal.shop.adapter.e2e;
 
 import static com.hexagonal.shop.adapter.in.rest.product.ProductsControllerAssertions.assertThatResponseIsProductList;
 import static com.hexagonal.shop.adapter.out.persistent.DemoProducts.COMPUTER_MONITOR;
