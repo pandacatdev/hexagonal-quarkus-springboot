@@ -1,5 +1,10 @@
 plugins {
     id 'java'
+    id 'application'
+}
+
+application {
+    mainClass = 'com.hexagonal.shop.bootstrap.Launcher'
 }
 
 group = 'com.hexagonal.shop'
@@ -13,8 +18,15 @@ dependencies {
     implementation project(':adapter')
     implementation project(':application')
     implementation project(':model')
-    implementation 'org.jboss.resteasy:resteasy-undertow:7.0.0.Final'
+    implementation('org.jboss.resteasy:resteasy-undertow:7.0.0.Final') {
+        exclude group: 'org.jboss', module: 'jandex'
+    }
     runtimeOnly 'org.jboss.resteasy:resteasy-jackson2-provider:7.0.0.Final'
+
+    implementation 'org.hibernate.orm:hibernate-core:7.1.7.Final'
+    implementation 'org.hibernate.validator:hibernate-validator:9.0.1.Final'
+    implementation 'org.glassfish:jakarta.el:5.0.0-M1'
+    implementation 'com.mysql:mysql-connector-j:9.4.0'
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'

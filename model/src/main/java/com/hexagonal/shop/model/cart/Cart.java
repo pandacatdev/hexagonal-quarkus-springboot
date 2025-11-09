@@ -37,5 +37,10 @@ public class Cart {
   public Money subTotal() {
     return lineItems.values().stream().map(CartLineItem::subTotal).reduce(Money::add).orElse(null);
   }
+
+  // Use only for reconstituting a Cart entity from the database
+  public void putProductIgnoringNotEnoughItemsInStock(Product product, int quantity) {
+    lineItems.put(product.id(), new CartLineItem(product, quantity));
+  }
 }
 
