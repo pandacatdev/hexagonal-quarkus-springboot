@@ -1,31 +1,35 @@
-package com.hexagonal.bootstrap.e2e;
+package com.hexagonal.shop.adapter.e2e;
 
 import static com.hexagonal.shop.adapter.in.rest.cart.CartsControllerAssertions.assertThatResponseIsCart;
 import static com.hexagonal.shop.adapter.out.persistent.DemoProducts.LED_LIGHTS;
 import static com.hexagonal.shop.adapter.out.persistent.DemoProducts.MONITOR_DESK_MOUNT;
 import static io.restassured.RestAssured.given;
-import static jakarta.ws.rs.core.Response.Status.NO_CONTENT;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
 
-import com.hexagonal.shop.adapter.TestProfileWithMySQL;
 import com.hexagonal.shop.model.cart.Cart;
 import com.hexagonal.shop.model.cart.NotEnoughItemsInStockException;
 import com.hexagonal.shop.model.customer.CustomerId;
-import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.TestProfile;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.ActiveProfiles;
 
 
-@QuarkusTest
-@TestProfile(TestProfileWithMySQL.class)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test-with-mysql")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CartTest {
 
   private static final CustomerId TEST_CUSTOMER_ID = new CustomerId(61157);
   private static final String CARTS_PATH = "/carts/" + TEST_CUSTOMER_ID.value();
+
+  @LocalServerPort
+  private Integer port;
 
   @Test
   @Order(1)
@@ -33,6 +37,7 @@ class CartTest {
       throws NotEnoughItemsInStockException {
     Response response =
         given()
+            .port(port)
             .queryParam("productId", LED_LIGHTS.id().value())
             .queryParam("quantity", 3)
             .post(CARTS_PATH + "/line-items")
@@ -52,6 +57,7 @@ class CartTest {
       throws NotEnoughItemsInStockException {
     Response response =
         given()
+            .port(port)
             .queryParam("productId", MONITOR_DESK_MOUNT.id().value())
             .queryParam("quantity", 1)
             .post(CARTS_PATH + "/line-items")
@@ -69,7 +75,7 @@ class CartTest {
   @Test
   @Order(3)
   void givenACartWithTwoLineItems_getCart_returnsTheCart() throws NotEnoughItemsInStockException {
-    Response response = given().get(CARTS_PATH).then().extract().response();
+    Response response = given().port(port).get(CARTS_PATH).then().extract().response();
 
     Cart expectedCart = new Cart(TEST_CUSTOMER_ID);
     expectedCart.addProduct(LED_LIGHTS, 3);
@@ -81,13 +87,13 @@ class CartTest {
   @Test
   @Order(4)
   void givenACartWithTwoLineItems_delete_returnsStatusCodeNoContent() {
-    given().delete(CARTS_PATH).then().statusCode(NO_CONTENT.getStatusCode());
+    given().port(port).delete(CARTS_PATH).then().statusCode(NO_CONTENT.value());
   }
 
   @Test
   @Order(5)
   void givenAnEmptiedCart_getCart_returnsAnEmptyCart() {
-    Response response = given().get(CARTS_PATH).then().extract().response();
+    Response response = given().port(port).get(CARTS_PATH).then().extract().response();
 
     assertThatResponseIsCart(response, new Cart(TEST_CUSTOMER_ID));
   }

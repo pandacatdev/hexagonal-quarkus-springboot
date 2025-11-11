@@ -11,23 +11,21 @@ import com.hexagonal.shop.application.service.cart.EmptyCartService;
 import com.hexagonal.shop.application.service.cart.GetCartService;
 import com.hexagonal.shop.application.service.product.FindProductsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
-@EnableAutoConfiguration
-@ComponentScan(basePackages = {
-    "com.hexagonal.shop"
-})
+@SpringBootApplication
 public class SpringAppConfig {
 
   @Autowired
   CartRepository cartRepository;
 
   @Autowired ProductRepository productRepository;
+
+  public static void main(String[] args) {
+    SpringApplication.run(SpringAppConfig.class, args);
+  }
 
   @Bean
   GetCartUseCase getCartUseCase() {

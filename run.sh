@@ -6,7 +6,7 @@ set -e
 # ---------------------------------------------
 PERSISTENCE=${1:-inmemory}
 CONTAINER_NAME=hexagon-mysql
-APP_DIR="bootstrap"
+APP_DIR="adapter-quarkus"
 JAR_PATH="$APP_DIR/build/quarkus-app/quarkus-run.jar"
 
 # ---------------------------------------------

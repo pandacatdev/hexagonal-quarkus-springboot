@@ -53,6 +53,7 @@ dependencies {
     testImplementation "io.quarkus:quarkus-junit5-mockito"
     testImplementation "io.rest-assured:rest-assured"
     testImplementation 'org.assertj:assertj-core:3.27.6'
+    testImplementation 'com.tngtech.archunit:archunit-junit5:1.4.1'
 
     // Testcontainers for MySQL integration tests
     testImplementation 'org.testcontainers:mysql:1.21.3'

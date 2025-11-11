@@ -51,6 +51,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.rest-assured:rest-assured'
     testImplementation 'org.testcontainers:mysql:1.21.3'
+    testImplementation 'com.tngtech.archunit:archunit-junit5:1.4.1'
 
     // Use the "attached test JAR" from the "model" module
     testImplementation project(path: ':model', configuration: 'tests')

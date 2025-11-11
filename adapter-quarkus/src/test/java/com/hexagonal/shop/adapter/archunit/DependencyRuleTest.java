@@ -1,4 +1,4 @@
-package com.hexagonal.bootstrap.archunit;
+package com.hexagonal.shop.adapter.archunit;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 

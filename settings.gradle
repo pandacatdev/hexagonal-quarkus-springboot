@@ -1,6 +1,4 @@
 include ':model'
 include ':application'
-include ':adapter'
+include ':adapter-quarkus'
 include ':adapter-spring'
-include ':bootstrap-spring'
-include ':bootstrap'
