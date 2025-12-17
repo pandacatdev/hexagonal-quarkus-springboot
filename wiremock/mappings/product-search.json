@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/products",
+    "queryParameters": {
+      "q": {
+        "matches": ".*"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": [
+      {
+        "id": "1",
+        "name": "Coffee Beans",
+        "description": "Premium Arabica",
+        "priceCurrency": "USD",
+        "priceAmount": 12.50,
+        "itemsInStock": 150
+      },
+      {
+        "id": "2",
+        "name": "Coffee Mug",
+        "description": "Large Latte Mug",
+        "priceCurrency": "USD",
+        "priceAmount": 7.99,
+        "itemsInStock": 80
+      }
+    ]
+  }
+}

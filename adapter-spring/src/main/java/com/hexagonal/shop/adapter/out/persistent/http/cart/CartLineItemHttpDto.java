@@ -1,4 +1,7 @@
 package com.hexagonal.shop.adapter.out.persistent.http.cart;
 
-public class CartLineItemHttpDto {
-}
+public record CartLineItemHttpDto(
+    Integer cartId,
+    CartProductSnapshotDto product,
+    int quantity
+) {}

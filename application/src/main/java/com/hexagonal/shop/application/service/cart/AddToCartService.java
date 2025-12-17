@@ -23,9 +23,9 @@ public class AddToCartService implements AddToCartUseCase {
   }
 
   @Override
-  public Cart addToCart(CustomerId customerIdVeryVeryLong, ProductId productId, int quantity)
+  public Cart addToCart(CustomerId customerId, ProductId productId, int quantity)
       throws ProductNotFoundException, NotEnoughItemsInStockException {
-    Objects.requireNonNull(customerIdVeryVeryLong, "'customerId' must not be null");
+    Objects.requireNonNull(customerId, "'customerId' must not be null");
     Objects.requireNonNull(productId, "'productId' must not be null");
     if (quantity < 1) {
       throw new IllegalArgumentException("'quantity' must be greater than 0");
@@ -36,8 +36,8 @@ public class AddToCartService implements AddToCartUseCase {
 
     Cart cart =
         cartRepository
-            .findByCustomerId(customerIdVeryVeryLong)
-            .orElseGet(() -> new Cart(customerIdVeryVeryLong));
+            .findByCustomerId(customerId)
+            .orElseGet(() -> new Cart(customerId));
 
     cart.addProduct(product, quantity);
 

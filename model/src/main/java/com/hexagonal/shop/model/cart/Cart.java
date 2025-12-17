@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 public class Cart {
 
   @Getter
-  private final CustomerId id; // cart ID = customer ID
+  private final CustomerId id;
 
   private final Map<ProductId, CartLineItem> lineItems = new LinkedHashMap<>();
 
