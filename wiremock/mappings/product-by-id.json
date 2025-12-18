@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/products/[^/]+"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "jsonBody": {
+      "id": "{{request.path.[1]}}",
+      "name": "Mock Product {{request.path.[1]}}",
+      "description": "Mocked product from WireMock",
+      "priceCurrency": "USD",
+      "priceAmount": 19.99,
+      "itemsInStock": 42
+    }
+  }
+}

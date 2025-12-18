@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/products",
+    "bodyPatterns": [
+      { "matchesJsonPath": "$.id" },
+      { "matchesJsonPath": "$.name" },
+      { "matchesJsonPath": "$.priceCurrency" },
+      { "matchesJsonPath": "$.priceAmount" },
+      { "matchesJsonPath": "$.itemsInStock" }
+    ]
+  },
+  "response": {
+    "status": 201
+  }
+}

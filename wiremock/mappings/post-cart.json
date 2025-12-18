@@ -1,0 +1,9 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/carts"
+  },
+  "response": {
+    "status": 201
+  }
+}

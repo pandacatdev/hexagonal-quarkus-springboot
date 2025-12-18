@@ -1,0 +1,42 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/carts/([0-9]+)"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "transformers": ["response-template"],
+    "jsonBody": {
+      "customerId": "{{request.path.[1]}}",
+      "lineItems": [
+        {
+          "cartId": "{{request.path.[1]}}",
+          "quantity": 20,
+          "product": {
+            "id": "TTKQ8NJZ",
+            "name": "Plastic Sheeting",
+            "description": "Mocked product from WireMock",
+            "priceCurrency": "USD",
+            "priceAmount": 19.99,
+            "itemsInStock": 42
+          }
+        },
+        {
+          "cartId": "{{request.path.[1]}}",
+          "quantity": 2,
+          "product": {
+            "id": "K3SR7PBX",
+            "name": "27-Inch Curved Computer Monitor",
+            "description": "Mocked product from WireMock",
+            "priceCurrency": "USD",
+            "priceAmount": 249.99,
+            "itemsInStock": 10
+          }
+        }
+      ]
+    }
+  }
+}

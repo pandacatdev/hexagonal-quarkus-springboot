@@ -30,9 +30,6 @@ artifacts {
 }
 
 dependencies {
-    // Version management (Quarkus BOM)
-    implementation enforcedPlatform("io.quarkus.platform:quarkus-bom:${quarkusPlatformVersion}")
-
     // Internal hexagonal core modules
     implementation project(':model')
     implementation project(':application')
@@ -40,6 +37,7 @@ dependencies {
     api 'org.springframework.boot:spring-boot-starter'
     api 'org.springframework.boot:spring-boot-starter-web'
     api 'org.springframework.boot:spring-boot-starter-data-jpa'
+    api 'org.springframework.boot:spring-boot-starter-webflux'
 
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'com.h2database:h2'
